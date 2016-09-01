@@ -50,7 +50,7 @@ Use "goimprove [command] --help" for more information about a command.
 
 ### Prerequisites
 
-Install [go version 1.4](https://golang.org/doc/install)
+Install [go version 1.6](https://golang.org/doc/install)
 
 
 ### Building
