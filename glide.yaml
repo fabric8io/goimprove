@@ -1,0 +1,6 @@
+package: github.com/fabric8io/goimprove
+import:
+- package: github.com/daviddengcn/go-colortext
+- package: github.com/spf13/cobra
+- package: github.com/spf13/pflag
+- package: github.com/google/go-github
