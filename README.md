@@ -10,7 +10,7 @@ Currently it only supports getting the number of downloads a particular github r
 It's aim is to be run from the CLI or in Kubernetes pod that will watch for events
 
 Ideally we'd expose a REST API so that a monitoring tool such as Prometheus can coe along and scrape any metrics instead of pushing to ElasticSearch here.
-  
+
 ## Getting started
 
 ### Install / Update & run
@@ -57,14 +57,16 @@ Install [go version 1.4](https://golang.org/doc/install)
 
 ```sh
 git clone git@github.com:fabric8io/goimprove.git $GOPATH/src/github.com/fabric8io/goimprove
-./make
+cd $GOPATH/src/github.com/fabric8io/goimprove
+make bootstrap
 ```
 
-Make changes to *.go files, rerun `make` and run the generated binary..
+Edit *.go files, run `make` and run the generated binary..
 
 e.g.
 
 ```sh
+make
 ./build/goimprove -r fabric8io/fabric8
 
 ```
