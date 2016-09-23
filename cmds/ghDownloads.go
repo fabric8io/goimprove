@@ -18,6 +18,7 @@ package cmds
 import (
 	"strconv"
 	"strings"
+	"time"
 
 	"github.com/fabric8io/goimprove/util"
 	"github.com/google/go-github/github"
@@ -65,12 +66,12 @@ func NewCmdGitHubDownloads() *cobra.Command {
 				opt.Page = resp.NextPage
 			}
 			grandTotal := 0
-			var previousReleaseTimeStamp github.Timestamp
+			previousReleaseTimeStamp := time.Now()
 			for v := range allReleases {
 				release := allReleases[v]
 				tag := *release.Name
 				releaseDate := *release.PublishedAt
-				duration := previousReleaseTimeStamp.Time.Sub(releaseDate.Time)
+				duration := previousReleaseTimeStamp.Sub(releaseDate.Time)
 				totalDownloadCount := 0
 				if tag != "" {
 					for w := range release.Assets {
@@ -84,10 +85,33 @@ func NewCmdGitHubDownloads() *cobra.Command {
 					util.Infof("Tag %s published had %v downloads and was available for %s days\n", tag, totalDownloadCount, days)
 
 				}
-				previousReleaseTimeStamp = releaseDate
+				previousReleaseTimeStamp = releaseDate.Time
 				grandTotal = grandTotal + totalDownloadCount
 			}
 			util.Infof("\nGrand total of %v downloads\n", grandTotal)
+
+			// for v := range allReleases {
+			// 	release := allReleases[v]
+			// 	tag := *release.Name
+			// 	releaseDate := *release.PublishedAt
+			// 	duration := previousReleaseTimeStamp.Sub(releaseDate.Time)
+			// 	totalDownloadCount := 0
+			// 	if tag != "" {
+			// 		for w := range release.Assets {
+			// 			asset := release.Assets[w]
+			// 			totalDownloadCount = totalDownloadCount + *asset.DownloadCount
+			// 		}
+
+			// 		d := duration.Hours() / 24
+			// 		days := strconv.FormatFloat(d, 'f', 6, 64)
+
+			// 		util.Infof("Tag %s published had %v downloads and was available for %s days\n", tag, totalDownloadCount, days)
+
+			// 	}
+			// 	previousReleaseTimeStamp = releaseDate
+			// 	grandTotal = grandTotal + totalDownloadCount
+			// }
+
 		},
 	}
 	cmd.PersistentFlags().StringP("repository", "r", "", "the GitHub repository to get the release download numbers e.g. fabric8io/gofabric8")

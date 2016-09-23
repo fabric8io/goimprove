@@ -9,7 +9,7 @@ Currently it only supports getting the number of downloads a particular github r
 
 It's aim is to be run from the CLI or in Kubernetes pod that will watch for events
 
-Ideally we'd expose a REST API so that a monitoring tool such as Prometheus can coe along and scrape any metrics instead of pushing to ElasticSearch here.
+Ideally we'd expose a REST API so that a monitoring tool such as Prometheus can scrape metrics instead of us pushing to ElasticSearch.
 
 ## Getting started
 
